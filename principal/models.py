@@ -9,14 +9,14 @@ class Idea(models.Model):
     idea_clasificacion = models.CharField(max_length=2,
                                       choices=IDEA_CALIFICACION_OPCIONES,
                                       default=ME_GUSTA)	
-	titulo = models.CharField(max_length=100, verbose_name='Título', unique=True)
+	nombre = models.CharField(max_length=100, verbose_name='Nombre', unique=True)
 	descripcion = models.TextField(verbose_name='Descripción', help_text='Descripción de la idea')
-	imagen = models.ImageField(upload_to='recetas', verbose_name='Imágen')
-	tiempo_registro = models.DateTimeField(auto_now=True)
+	imagen = models.ImageField(upload_to='ideas', verbose_name='Imágen')
+	fecha_registro = models.DateTimeField(auto_now=True)
 	usuario = models.ForeignKey(User)
 
 	def __unicode__(self):
-		return self.titulo
+		return self.nombre
 
 class Comentario(models.Model):
 	idea = models.ForeignKey(Idea)
@@ -26,26 +26,33 @@ class Comentario(models.Model):
 		return self.texto
 
 class Tarea(models.Model):
-	titulo = models.CharField(max_length=100, verbose_name='Título', unique=True)
-	descripcion = models.TextField(verbose_name='Descripción', help_text='Descripción de la idea')
-	
+	perfil = models.ForeignKey(Perfil)
+	nombre = models.CharField(max_length=100, verbose_name='Nombre', unique=True)
+	descripcion = models.TextField(verbose_name='Descripción', help_text='Descripción de la tarea')
+
 	def __unicode__(self):
-		return self.texto
+		return self.nombre
 
 class TareaxIdea(models.Model):
-	idea = models.ForeignKey(Idea)
 	tarea = models.ForeignKey(Tarea)
-	tiempo_registro = models.DateTimeField(auto_now=True)
+	idea = models.ForeignKey(Idea)
+	fecha_creacion = models.DateTimeField(auto_now=True)
 	unidades_pago = models.IntegerField()
 	tiempo_estimado = models.IntegerField()
 
-	def __unicode__(self):
-	return self.texto
+class Aplicacion(models.Model):
+	usuario = models.ForeignKey(User)
+	tarea = models.ForeignKey(Tarea)
+	fecha_aplicacion = models.DateTimeField(auto_now=True)
+	comentario = models.TextField(help_text='Tu comentario', verbose_name='Comentario')
 
-class Categoria(models.Model):
-	titulo = models.CharField(max_length=100, verbose_name='Título', unique=True)
-	descripcion = models.TextField(verbose_name='Descripción', help_text='Descripción de la idea')
-	
-	def __unicode__(self):
-		return self.texto
+class PerfilxUsuario(models.Model):
+	usuario = models.ForeignKey(User)
+	perfil = models.ForeignKey(Perfil)
 
+class Perfil(models.Model):
+	nombre = models.CharField(max_length=100, verbose_name='Nombre', unique=True)
+	descripcion = models.TextField(verbose_name='Descripción')
+		
+	def __unicode__(self):
+		return self.nombre
