@@ -26,6 +26,7 @@ class Comentario(models.Model):
 		return self.texto
 
 class Tarea(models.Model):
+	titulo = models.CharField(max_length=100, verbose_name='Título', unique=True)
 	descripcion = models.TextField(verbose_name='Descripción', help_text='Descripción de la idea')
 	
 	def __unicode__(self):
@@ -38,4 +39,13 @@ class TareaxIdea(models.Model):
 	unidades_pago = models.IntegerField()
 	tiempo_estimado = models.IntegerField()
 
+	def __unicode__(self):
+	return self.texto
+
+class Categoria(models.Model):
+	titulo = models.CharField(max_length=100, verbose_name='Título', unique=True)
+	descripcion = models.TextField(verbose_name='Descripción', help_text='Descripción de la idea')
+	
+	def __unicode__(self):
+		return self.texto
 
