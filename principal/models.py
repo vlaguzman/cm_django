@@ -1,14 +1,13 @@
+#encoding:utf-8
 from django.db import models
 from django.contrib.auth.models import User
 
 class Idea(models.Model):
 	IDEA_CALIFICACION_OPCIONES = (
-       	(ME_GUSTA, 'Me_gusta'),
-       	(NO_ME_GUSTA, 'No_me_gusta'),
+       	('S', 'Me_gusta'),
+       	('N', 'No_me_gusta'),
     )
-    idea_clasificacion = models.CharField(max_length=2,
-                                      choices=IDEA_CALIFICACION_OPCIONES,
-                                      default=ME_GUSTA)	
+	idea_clasificacion = models.CharField(max_length=2, choices=IDEA_CALIFICACION_OPCIONES)
 	nombre = models.CharField(max_length=100, verbose_name='Nombre', unique=True)
 	descripcion = models.TextField(verbose_name='Descripción', help_text='Descripción de la idea')
 	imagen = models.ImageField(upload_to='ideas', verbose_name='Imágen')
@@ -16,7 +15,7 @@ class Idea(models.Model):
 	usuario = models.ForeignKey(User)
 
 	def __unicode__(self):
-		return self.nombre
+		return u"%s - %s" % (self.nombre, self.descripcion)
 
 class Comentario(models.Model):
 	idea = models.ForeignKey(Idea)
@@ -25,6 +24,13 @@ class Comentario(models.Model):
 	def __unicode__(self):
 		return self.texto
 
+class Perfil(models.Model):
+	nombre = models.CharField(max_length=100, verbose_name='Nombre', unique=True)
+	descripcion = models.TextField(verbose_name='Descripción')
+		
+	def __unicode__(self):
+		return self.nombre
+		
 class Tarea(models.Model):
 	perfil = models.ForeignKey(Perfil)
 	nombre = models.CharField(max_length=100, verbose_name='Nombre', unique=True)
@@ -49,10 +55,3 @@ class Aplicacion(models.Model):
 class PerfilxUsuario(models.Model):
 	usuario = models.ForeignKey(User)
 	perfil = models.ForeignKey(Perfil)
-
-class Perfil(models.Model):
-	nombre = models.CharField(max_length=100, verbose_name='Nombre', unique=True)
-	descripcion = models.TextField(verbose_name='Descripción')
-		
-	def __unicode__(self):
-		return self.nombre

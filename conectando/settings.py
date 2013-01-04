@@ -1,5 +1,5 @@
 #encoding:utf-8
-# Django settings for mysite project.
+# Django settings for conectandomentes project.
 
 # Identificando la ruta del proyecto
 import dj_database_url
@@ -106,10 +106,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'mysite.urls'
+ROOT_URLCONF = 'conectando.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'mysite.wsgi.application'
+WSGI_APPLICATION = 'conectando.wsgi.application'
 
 TEMPLATE_DIRS = (
     os.path.join(RUTA_PROYECTO, 'plantillas'),
