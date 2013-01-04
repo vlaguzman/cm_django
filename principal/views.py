@@ -23,7 +23,7 @@ def usuarios(request):
 def nuevo_usuario(request):
 	if request.method=='POST':
 		formulario = UserCreationForm(request.POST)
-		if formulario.is_valid:
+		if formulario.is_valid():
 			formulario.save()
 			return HttpResponseRedirect('/')
 	else:
@@ -35,12 +35,12 @@ def ingresar(request):
 		return HttpResponseRedirect('/privado')
 	if request.method == 'POST':
 		formulario = AuthenticationForm(request.POST)
-		if formulario.is_valid:
+		if formulario.is_valid():
 			usuario = request.POST['username']
 			clave = request.POST['password']
 			acceso = authenticate(username=usuario, password=clave)
 			if acceso is not None:
-				if acceso.is_active:
+				if acceso.is_active():
 					login(request, acceso)
 					return HttpResponseRedirect('/privado')
 				else:
@@ -65,7 +65,7 @@ def contacto(request):
 	if request.method=='POST':
 		formulario = ContactoForm(request.POST)
 		if formulario.is_valid():
-			titulo = 'Mensaje desde el recetario de Maestros del Web'
+			titulo = 'Mensaje desde conectando mentes'
 			contenido = formulario.cleaned_data['mensaje'] + "\n"
 			contenido += 'Comunicarse a: ' + formulario.cleaned_data['correo']
 			correo = EmailMessage(titulo, contenido, to=['guzman.vla@gmail.com'])
@@ -89,19 +89,19 @@ def lista_ideas(request):
 	ideas = Idea.objects.all()
 	return render_to_response('ideas.html', {'ideas':ideas}, context_instance=RequestContext(request))
 
-def detalle_idea(request):
+def detalle_idea(request, id_idea):
 	idea_ = get_object_or_404(Idea, pk=id_idea)
 	comentarios = Comentario.objects.filter(idea=idea_)
-	return render_to_response('idea.html',{'receta':idea_, 'comentarios':comentarios}, context_instance=RequestContext(request))
+	return render_to_response('idea.html',{'idea':idea_, 'comentarios':comentarios}, context_instance=RequestContext(request))
 
 def nueva_idea(request):
 	if request.method=='POST':
-		formulario = RecetaForm(request.POST, request.FILES)
-		if formulario.is_valid:
+		formulario = IdeaForm(request.POST, request.FILES)
+		if formulario.is_valid():
 			formulario.save()
 			return HttpResponseRedirect('/ideas')
 	else:
-		formulario = RecetaForm()
+		formulario = IdeaForm()
 	return render_to_response('ideaform.html',{'formulario':formulario}, context_instance=RequestContext(request))
 
 

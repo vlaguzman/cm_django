@@ -3,11 +3,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Idea(models.Model):
-	IDEA_CALIFICACION_OPCIONES = (
-       	('S', 'Me_gusta'),
-       	('N', 'No_me_gusta'),
+	IDEA_CLASIFICACION_OPCIONES = (
+       	('Emprendimiento digital', 'digital'),
+       	('Emprendimiento tradicional', 'tradicional'),
+       	('Emprendimiento cultural', 'cultural'),
+       	('Emprendimiento social', 'social'),
     )
-	idea_clasificacion = models.CharField(max_length=2, choices=IDEA_CALIFICACION_OPCIONES)
+	idea_clasificacion = models.CharField(max_length=30, choices=IDEA_CLASIFICACION_OPCIONES)
 	nombre = models.CharField(max_length=100, verbose_name='Nombre', unique=True)
 	descripcion = models.TextField(verbose_name='Descripción', help_text='Descripción de la idea')
 	imagen = models.ImageField(upload_to='ideas', verbose_name='Imágen')
@@ -19,7 +21,20 @@ class Idea(models.Model):
 
 class Comentario(models.Model):
 	idea = models.ForeignKey(Idea)
+	usuario = models.ForeignKey(User)
 	texto = models.TextField(help_text='Tu comentario', verbose_name='Comentario')
+	
+	def __unicode__(self):
+		return self.texto
+
+class Calificacion(models.Model):
+	IDEA_CALIFICACION_OPCIONES = (
+       	('S', 'Me_gusta'),
+       	('N', 'No_me_gusta'),
+    )
+	idea_clasificacion = models.CharField(max_length=2, choices=IDEA_CALIFICACION_OPCIONES)
+	idea = models.ForeignKey(Idea)
+	usuario = models.ForeignKey(User)
 
 	def __unicode__(self):
 		return self.texto
