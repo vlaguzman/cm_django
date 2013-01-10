@@ -159,5 +159,5 @@ LOGGING = {
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'solo.ventas.virtuales@gmail.com'
-EMAIL_HOST_PASSWORD = 'Sub@sta335'
+EMAIL_HOST_PASSWORD = 'Sub@sta553'
 EMAIL_PORT = 587

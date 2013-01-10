@@ -23,7 +23,7 @@ def usuarios(request):
 def nuevo_usuario(request):
 	if request.method=='POST':
 		formulario = UserCreationForm(request.POST)
-		if formulario.is_valid():
+		if formulario.is_valid:
 			formulario.save()
 			return HttpResponseRedirect('/')
 	else:
@@ -35,12 +35,12 @@ def ingresar(request):
 		return HttpResponseRedirect('/privado')
 	if request.method == 'POST':
 		formulario = AuthenticationForm(request.POST)
-		if formulario.is_valid():
+		if formulario.is_valid:
 			usuario = request.POST['username']
 			clave = request.POST['password']
 			acceso = authenticate(username=usuario, password=clave)
 			if acceso is not None:
-				if acceso.is_active():
+				if acceso.is_active:
 					login(request, acceso)
 					return HttpResponseRedirect('/privado')
 				else:
@@ -90,10 +90,18 @@ def lista_ideas(request):
 	return render_to_response('ideas.html', {'ideas':ideas}, context_instance=RequestContext(request))
 
 def detalle_idea(request, id_idea):
-	idea_ = get_object_or_404(Idea, pk=id_idea)
 	comentarios = Comentario.objects.filter(idea=idea_)
-	return render_to_response('idea.html',{'idea':idea_, 'comentarios':comentarios}, context_instance=RequestContext(request))
+	idea_ = get_object_or_404(Idea, pk=id_idea)
+	if request.method=='POST':
+		formulario = ComentarioForm(request.POST)
+		if formulario.is_valid():
+			formulario.save()
+			return HttpResponseRedirect('/ideas')
+	else:
+		formulario = ComentarioForm()
+	return render_to_response('idea.html',{'idea':idea_, 'comentarios':comentarios, 'formulario':formulario}, context_instance=RequestContext(request))
 
+@login_required(login_url='/ingresar')
 def nueva_idea(request):
 	if request.method=='POST':
 		formulario = IdeaForm(request.POST, request.FILES)
