@@ -91,6 +91,6 @@ class TareaxIdea(models.Model):
 
 class Aplicacion(models.Model):
 	usuario = models.ForeignKey(User)
-	tarea = models.ForeignKey(Tarea)
+	tarea = models.ForeignKey(TareaxIdea)
 	fecha_aplicacion = models.DateTimeField(auto_now=True)
 	comentario = models.TextField(help_text='Tu comentario', verbose_name='Comentario')

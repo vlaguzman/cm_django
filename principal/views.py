@@ -1,6 +1,6 @@
 # Create your views here.
 from principal.models import Idea, Comentario, Tarea, TareaxIdea, Aplicacion, Perfil
-from principal.forms import IdeaForm, ComentarioForm, ContactoForm, TareaForm, TareaIdeaForm
+from principal.forms import IdeaForm, ComentarioForm, ContactoForm, TareaForm, TareaIdeaForm, AplicacionForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
@@ -95,14 +95,22 @@ def detalle_idea(request, id_idea):
 	idea_ = get_object_or_404(Idea, pk=id_idea)
 	comentarios = Comentario.objects.filter(idea=idea_)
 	tareas = TareaxIdea.objects.filter(idea=idea_)
+	aplicaciones = Aplicacion.objects.all()
 	if request.method=='POST':
 		formulario_comentario = ComentarioForm(request.POST)
 		if formulario_comentario.is_valid():
 			formulario_comentario.save()
-			return HttpResponseRedirect('/ideas')
+			return HttpResponseRedirect('/idea/'+id_idea)
 	else:
 		formulario_comentario = ComentarioForm()
-	return render_to_response('idea.html',{'idea':idea_, 'comentarios':comentarios, 'formulario_comentario':formulario_comentario, 'usuario':usuario, 'tareas':tareas}, context_instance=RequestContext(request))
+	if request.method=='POST':
+		formulario_aplicacion = AplicacionForm(request.POST)
+		if formulario_aplicacion.is_valid():
+			formulario_aplicacion.save()
+			return HttpResponseRedirect('/idea/'+id_idea)
+	else:
+		formulario_aplicacion = AplicacionForm()	
+	return render_to_response('idea.html',{'idea':idea_, 'comentarios':comentarios, 'formulario_comentario':formulario_comentario,'formulario_aplicacion':formulario_aplicacion, 'usuario':usuario, 'tareas':tareas, 'aplicaciones':aplicaciones}, context_instance=RequestContext(request))
 
 @login_required(login_url='/ingresar')
 def detalle_idea_usuario(request, id_idea):
