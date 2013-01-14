@@ -18,7 +18,9 @@ urlpatterns = patterns('',
     url(r'^cerrar/$','principal.views.cerrar'),
 
     url(r'^ideas/$','principal.views.lista_ideas'),
+    url(r'^misideas/$','principal.views.lista_ideas_usuario'),
     url(r'^idea/(?P<id_idea>\d+)$','principal.views.detalle_idea'),
+    url(r'^miidea/(?P<id_idea>\d+)$','principal.views.detalle_idea_usuario'),
     url(r'^idea/nueva/$','principal.views.nueva_idea'),
     url(r'^tarea/nueva/$','principal.views.nueva_tarea'),
    

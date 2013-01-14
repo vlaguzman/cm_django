@@ -51,7 +51,7 @@ class Calificacion(models.Model):
 class Perfil(models.Model):
 	nombre = models.CharField(max_length=100, verbose_name='Nombre', unique=True)
 	descripcion = models.TextField(verbose_name='Descripción')
-	usuarios =  models.ManyToManyField(User)
+	usuarios =  models.ManyToManyField(User, null=True, blank=True)
 	
 	def __str__(self):
 		return self.nombre
@@ -77,6 +77,12 @@ class Tarea(models.Model):
 		ordering = ["nombre"]
 
 class TareaxIdea(models.Model):
+	TAREA_ESTADOS = (
+    	('Sin asignar', 'Sin_asignar'),
+    	('Asignada', 'Asignada'),
+    	('Terminada', 'Terminada'),
+	)
+	estado = models.CharField(max_length=20, choices=TAREA_ESTADOS)
 	tarea = models.ForeignKey(Tarea)
 	idea = models.ForeignKey(Idea)
 	fecha_creacion = models.DateTimeField(auto_now=True)

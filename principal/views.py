@@ -1,6 +1,6 @@
 # Create your views here.
 from principal.models import Idea, Comentario, Tarea, TareaxIdea, Aplicacion, Perfil
-from principal.forms import IdeaForm, ComentarioForm, ContactoForm, TareaForm
+from principal.forms import IdeaForm, ComentarioForm, ContactoForm, TareaForm, TareaIdeaForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
@@ -94,6 +94,7 @@ def detalle_idea(request, id_idea):
 	usuario = request.user
 	idea_ = get_object_or_404(Idea, pk=id_idea)
 	comentarios = Comentario.objects.filter(idea=idea_)
+	tareas = TareaxIdea.objects.filter(idea=idea_)
 	if request.method=='POST':
 		formulario_comentario = ComentarioForm(request.POST)
 		if formulario_comentario.is_valid():
@@ -101,7 +102,21 @@ def detalle_idea(request, id_idea):
 			return HttpResponseRedirect('/ideas')
 	else:
 		formulario_comentario = ComentarioForm()
-	return render_to_response('idea.html',{'idea':idea_, 'comentarios':comentarios, 'formulario_comentario':formulario_comentario, 'usuario':usuario}, context_instance=RequestContext(request))
+	return render_to_response('idea.html',{'idea':idea_, 'comentarios':comentarios, 'formulario_comentario':formulario_comentario, 'usuario':usuario, 'tareas':tareas}, context_instance=RequestContext(request))
+
+@login_required(login_url='/ingresar')
+def detalle_idea_usuario(request, id_idea):
+	usuario = request.user
+	idea_ = get_object_or_404(Idea, pk=id_idea)
+	tareas = TareaxIdea.objects.filter(idea=idea_)
+	if request.method=='POST':
+		formulario_tareaidea = TareaIdeaForm(request.POST)
+		if formulario_tareaidea.is_valid():
+			formulario_tareaidea.save()
+			return HttpResponseRedirect('/ideas')
+	else:
+		formulario_tareaidea = TareaIdeaForm()
+	return render_to_response('miidea.html',{'idea':idea_, 'tareas':tareas, 'formulario_tareaidea':formulario_tareaidea, 'usuario':usuario}, context_instance=RequestContext(request))
 
 @login_required(login_url='/ingresar')
 def nueva_idea(request):
@@ -127,6 +142,22 @@ def nueva_tarea(request):
 			return HttpResponseRedirect('/ideas')
 	else:
 		formulario_tareas = TareaForm()
-	return render_to_response('tareaform.html',{'formulario_tareas':formulario_tareas, 'usuario':usuario}, context_instance=RequestContext(request))
+	return render_to_response('tareaform.html',{'formulario_tareas':formulario_tareas}, context_instance=RequestContext(request))
 
+@login_required(login_url='/ingresar')
+def lista_ideas_usuario(request):
+	usuario = request.user
+	ideas = Idea.objects.all()
+	return render_to_response('misideas.html', {'ideas':ideas, 'usuario':usuario}, context_instance=RequestContext(request))
 
+@login_required(login_url='/ingresar')
+def nueva_tareaxidea(request, id_idea):
+	idea_ = get_object_or_404(Idea, pk=id_idea)
+	if request.method=='POST':
+		formulario_tareaidea = TareaIdeaForm(request.POST)
+		if formulario_tareaidea.is_valid():
+			formulario_tareaidea.save()
+			return HttpResponseRedirect('/ideas')
+	else:
+		formulario_tareaidea = TareaIdeaForm()
+	return render_to_response('tareaideaform.html',{'idea':idea_, 'formulario_tareaidea':formulario_tareaidea}, context_instance=RequestContext(request))
