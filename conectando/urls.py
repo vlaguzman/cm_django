@@ -20,5 +20,6 @@ urlpatterns = patterns('',
     url(r'^ideas/$','principal.views.lista_ideas'),
     url(r'^idea/(?P<id_idea>\d+)$','principal.views.detalle_idea'),
     url(r'^idea/nueva/$','principal.views.nueva_idea'),
+    url(r'^tarea/nueva/$','principal.views.nueva_tarea'),
    
 )

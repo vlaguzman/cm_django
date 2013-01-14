@@ -1,6 +1,6 @@
 # Create your views here.
-from principal.models import Idea, Comentario, Tarea, TareaxIdea, Aplicacion, PerfilxUsuario, Perfil
-from principal.forms import IdeaForm, ComentarioForm, ContactoForm
+from principal.models import Idea, Comentario, Tarea, TareaxIdea, Aplicacion, Perfil
+from principal.forms import IdeaForm, ComentarioForm, ContactoForm, TareaForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
@@ -89,28 +89,44 @@ def lista_ideas(request):
 	ideas = Idea.objects.all()
 	return render_to_response('ideas.html', {'ideas':ideas}, context_instance=RequestContext(request))
 
+@login_required(login_url='/ingresar')
 def detalle_idea(request, id_idea):
-	comentarios = Comentario.objects.filter(idea=idea_)
+	usuario = request.user
 	idea_ = get_object_or_404(Idea, pk=id_idea)
+	comentarios = Comentario.objects.filter(idea=idea_)
 	if request.method=='POST':
-		formulario = ComentarioForm(request.POST)
-		if formulario.is_valid():
-			formulario.save()
+		formulario_comentario = ComentarioForm(request.POST)
+		if formulario_comentario.is_valid():
+			formulario_comentario.save()
 			return HttpResponseRedirect('/ideas')
 	else:
-		formulario = ComentarioForm()
-	return render_to_response('idea.html',{'idea':idea_, 'comentarios':comentarios, 'formulario':formulario}, context_instance=RequestContext(request))
+		formulario_comentario = ComentarioForm()
+	return render_to_response('idea.html',{'idea':idea_, 'comentarios':comentarios, 'formulario_comentario':formulario_comentario, 'usuario':usuario}, context_instance=RequestContext(request))
 
 @login_required(login_url='/ingresar')
 def nueva_idea(request):
+	usuario = request.user
 	if request.method=='POST':
-		formulario = IdeaForm(request.POST, request.FILES)
-		if formulario.is_valid():
-			formulario.save()
+		formulario_ideas = IdeaForm(request.POST, request.FILES)
+		formulario_tareas = TareaForm(request.POST, request.FILES)
+		if formulario_ideas.is_valid():
+			formulario_ideas.save()
 			return HttpResponseRedirect('/ideas')
 	else:
-		formulario = IdeaForm()
-	return render_to_response('ideaform.html',{'formulario':formulario}, context_instance=RequestContext(request))
+		formulario_ideas = IdeaForm()
+		formulario_tareas = TareaForm()
+	return render_to_response('ideaform.html',{'formulario_ideas':formulario_ideas, 'usuario':usuario}, context_instance=RequestContext(request))
 
+@login_required(login_url='/ingresar')
+def nueva_tarea(request):
+	usuario = request.user
+	if request.method=='POST':
+		formulario_tareas = TareaForm(request.POST, request.FILES)
+		if formulario_tareas.is_valid():
+			formulario_tareas.save()
+			return HttpResponseRedirect('/ideas')
+	else:
+		formulario_tareas = TareaForm()
+	return render_to_response('tareaform.html',{'formulario_tareas':formulario_tareas, 'usuario':usuario}, context_instance=RequestContext(request))
 
 
