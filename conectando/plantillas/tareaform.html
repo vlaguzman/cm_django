@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block contenido %}
+	<form id='formulario_tareas' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
+		{{formulario_tareas.perfil.errors}}
+		<label for='id_idea_clasificacion'>Perfil:</label>
+		{{formulario_tareas.perfil}}
+
+		{{formulario_tareas.nombre.errors}}
+		<label for='id_nombre'>Nombre:</label>
+		{{formulario_tareas.nombre}}
+		
+		{{formulario_tareas.descripcion.errors}}
+		<label for='id_descripción'>Descripción:</label>
+		{{formulario_tareas.descripcion}}
+
+		<p><input type='submit' value='Confirmar'></p>
+	</form>
+
+{% endblock %}

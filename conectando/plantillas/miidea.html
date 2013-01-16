@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block titulo %} {{idea.nombre}} {% endblock %}
+
+{% block encabezado %}
+	<h1>{{idea.nombre|title}}</h1>
+{% endblock %}
+
+{% block contenido %}
+
+
+	<div id='descripcion'>
+		<h2>Descripci&oacute;n</h2>
+		<p>{{idea.descripcion}}</p>
+	</div>
+	<div id='clasificacion'>
+		<h2>Clasificación</h2>
+		<p>{{idea.idea_clasificacion}}</p>
+	</div>
+	<div id='referencia'>
+		<img src='{{MEDIA_URL}}{{idea.imagen}}'>
+	</div>	
+	<div id='tareas'>
+		<h2>Tareas</h2>
+			{%  for item in tareas %}
+				<p>{{item.tarea.nombre}} - Fecha creación : {{item.fecha_creacion}} - Unidades : {{item.unidades_pago}} - Tiempo : {{item.tiempo_estimado}} días - Estado: {{item.estado}}</p>
+				<div id='aplicaciones'>
+					<h2>Aplicaciones</h2>
+						{%  for aplicacion in aplicaciones %}
+							{% if item == aplicacion.tarea %}
+								<p>{{aplicacion.usuario.username}} - Aplicacion realizada el: {{aplicacion.fecha_aplicacion}} - Comentario: {{aplicacion.comentario}}</p>
+							{% endif %}
+						{%  empty %}
+							<p> Aún no se realiza ninguna aplicación</p>
+						{%  endfor %}
+				</div>
+			{%  empty %}
+				<p> Sin tareas registradas </p>
+			{%  endfor %}
+	</div>
+	<form id='formulario_tareaidea' method='post' action=''>{% csrf_token %}
+
+		<input type="hidden" name="idea" id="id_idea" value={{idea.id}} />
+
+		{{formulario_tareaidea.tarea.errors}}
+		<label for='id_tarea'>Tarea:</label>
+		{{formulario_tareaidea.tarea}}				
+
+		{{formulario_tareaidea.unidades_pago.errors}}
+		<label for='id_unidades_pago'>Unidades:</label>
+		{{formulario_tareaidea.unidades_pago}}
+
+		{{formulario_tareaidea.tiempo_estimado.errors}}
+		<label for='id_tiempo_estimado'>Tiempo (Días):</label>
+		{{formulario_tareaidea.tiempo_estimado}}
+
+		{{formulario_tareaidea.estado.errors}}
+		<label for='id_estado'>Estado:</label>
+		{{formulario_tareaidea.estado}}				
+
+		<p><input type='submit' value='Confirmar'></p>
+	</form>
+	<p> En caso de que no exista la tarea que necesitas, pudes agregar nuevas tareas aquí: </p>
+	<a href="/tarea/nueva">Agregar una Tarea</a>
+	<footer>
+		<p>Registrado {{idea.fecha_registro|date:'SHORT_DATETIME_FORMAT'}} por {{idea.usuario}}</p>
+	</footer>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block contenido %}
+	<form id='formulario_tareas' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
+		{{formulario_tareas.unidades_pago.errors}}
+		<label for='id_idea_clasificacion'>Unidades que estás dispuesto a pagar:</label>
+		{{formulario_tareas.unidades_pago}}
+
+		{{formulario_tareas.tiempo_estimado.errors}}
+		<label for='id_nombre'>Tiempo máximo de entrega:</label>
+		{{formulario_tareas.tiempo_estimado}}
+		
+		<input type="hidden" name="tarea" id="id_idea" value={{idea.id}} />
+		<input type="hidden" name="idea" id="id_tarea" value={{tarea.id}} />		
+
+		<p><input type='submit' value='Confirmar'></p>
+	</form>
+
+{% endblock %}

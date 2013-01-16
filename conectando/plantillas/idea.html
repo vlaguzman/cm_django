@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block titulo %}  {% endblock %}
+
+{% block encabezado %}
+	<h1>{{idea.nombre|title}}</h1>
+{% endblock %}
+
+{% block contenido %}
+	<a href="/tarea/nueva">Agregar una Tarea</a>
+
+	<div id='descripcion'>
+		<h3>Descripci&oacute;n</h3>
+		<p>{{idea.descripcion}}</p>
+	</div>
+	<div id='clasificacion'>
+		<h3>Clasificación</h3>
+		<p>{{idea.idea_clasificacion}}</p>
+	</div>
+	<div id='referencia'>
+		<img src='{{MEDIA_URL}}{{idea.imagen}}'>
+	</div>
+	<div id='calificacion'>
+		<p>Me gusta: {{calificaciones_like.count}} - No me gusta: {{calificaciones_dislike.count}}</p>
+	</div>	
+	<form id='formulario_calificacion' method='post' action=''>{% csrf_token %}{{ form|as_bootstrap }}
+		<input type="hidden" name="usuario" id="id_usuario" value={{usuario.id}} />
+		<input type="hidden" name="idea" id="id_idea" value={{idea.id}} />
+
+		{{formulario_calificacion.idea_clasificacion.errors}}
+		<label for='id_idea_clasificacion'>Y a ti, ¿Te gusta esta idea?:</label>
+		{{formulario_calificacion.idea_clasificacion}}
+
+		<p><input type='submit' value='Evaluar'></p>
+	</form>
+	<div id='tareas'>
+		<h2>Tareas</h2>
+			{%  for item in tareas %}
+				<p>{{item.tarea.nombre}} - Fecha creación : {{item.fecha_creacion}} - Unidades : {{item.unidades_pago}} - Tiempo : {{item.tiempo_estimado}} días - Estado: {{item.estado}}</p>
+				<div id='aplicaciones'>
+					<h3>Propuestas</h3>
+						{%  for aplicacion in aplicaciones %}
+							{% if item == aplicacion.tarea %}
+								<p>{{aplicacion.usuario.username}} - Aplicacion realizada el: {{aplicacion.fecha_aplicacion}} - Comentario: {{aplicacion.comentario}}</p>
+							{% endif %}
+						{%  empty %}
+							<p> Aún no se realiza ninguna aplicación</p>
+						{%  endfor %}
+				</div>
+				{% if item.estado == 'Sin asignar' %}
+					
+					<form id='formulario_aplicacion' method='post' action=''>{% csrf_token %}
+						<input type="hidden" name="usuario" id="id_usuario" value={{usuario.id}} />
+						<input type="hidden" name="tarea" id="id_tarea" value={{item.id}} />
+
+						{{formulario_aplicacion.comentario.errors}}
+						<label for='id_comentario_aplicacion'>Genera una propuesta:</label>
+						{{formulario_aplicacion.comentario}}
+
+						<p><input type='submit' value='Aplicar'></p>
+					</form>
+				{% endif %}
+			{%  empty %}
+				<p> Sin tareas registradas </p>
+			{%  endfor %}
+	</div>
+	<div id='comentarios'>
+		<h2>Comentarios</h2>
+			{%  for item in comentarios %}
+				<p>{{item.usuario}} : {{item.texto}}</p>
+			{%  empty %}
+				<p> Sin comentarios registrados </p>
+			{%  endfor %}
+	</div>
+	<form id='formulario' method='post' action=''>{% csrf_token %}
+		<input type="hidden" name="usuario" id="id_usuario" value={{usuario.id}} />
+		<input type="hidden" name="idea" id="id_idea" value={{idea.id}} />
+
+		{{formulario_comentario.texto.errors}}
+		<label for='id_comentario'>¿Qué piensas de esta idea?:</label>
+		{{formulario_comentario.texto}}
+
+		<p><input type='submit' value='Confirmar'></p>
+	</form>
+	<footer>
+		<p>Registrado {{idea.fecha_registro|date:'SHORT_DATETIME_FORMAT'}} por {{idea.usuario}}</p>
+	</footer>
+{% endblock %}

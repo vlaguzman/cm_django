@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block titulo %} Ideas registradas {% endblock %}
+
+{% block css %}
+	<style>
+		img { width: 100px; }
+	</style>
+{% endblock %}
+
+{% block encabezado %}
+	<h1>Nuestras Ideas</h1>
+{% endblock %}
+
+{% block contenido %}
+<a href="/idea/nueva">Agregar una Idea</a>
+
+<ul>
+    {% for idea in ideas %}
+    <li>
+        <a href='{% url principal.views.detalle_idea idea.id %}'>{{idea.nombre}}</a>
+        <img src='{{MEDIA_URL}}{{idea.imagen}}'>
+    </li>
+    {% empty %}
+    <li>Aún no hay ideas registradas</li>
+    {% endfor %}
+</ul>
+{% endblock %}
