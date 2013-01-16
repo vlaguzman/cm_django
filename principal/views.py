@@ -1,6 +1,6 @@
 # Create your views here.
-from principal.models import Idea, Comentario, Tarea, TareaxIdea, Aplicacion, Perfil
-from principal.forms import IdeaForm, ComentarioForm, ContactoForm, TareaForm, TareaIdeaForm, AplicacionForm
+from principal.models import Idea, Comentario, Tarea, TareaxIdea, Aplicacion, Perfil, Calificacion
+from principal.forms import IdeaForm, ComentarioForm, ContactoForm, TareaForm, TareaIdeaForm, AplicacionForm, CalificacionForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
@@ -96,6 +96,8 @@ def detalle_idea(request, id_idea):
 	comentarios = Comentario.objects.filter(idea=idea_)
 	tareas = TareaxIdea.objects.filter(idea=idea_)
 	aplicaciones = Aplicacion.objects.all()
+	calificaciones_like = Calificacion.objects.filter(idea=idea_, idea_clasificacion='S')
+	calificaciones_dislike = Calificacion.objects.filter(idea=idea_, idea_clasificacion='N')
 	if request.method=='POST':
 		formulario_comentario = ComentarioForm(request.POST)
 		if formulario_comentario.is_valid():
@@ -110,13 +112,21 @@ def detalle_idea(request, id_idea):
 			return HttpResponseRedirect('/idea/'+id_idea)
 	else:
 		formulario_aplicacion = AplicacionForm()	
-	return render_to_response('idea.html',{'idea':idea_, 'comentarios':comentarios, 'formulario_comentario':formulario_comentario,'formulario_aplicacion':formulario_aplicacion, 'usuario':usuario, 'tareas':tareas, 'aplicaciones':aplicaciones}, context_instance=RequestContext(request))
+	if request.method=='POST':
+		formulario_calificacion = CalificacionForm(request.POST)
+		if formulario_calificacion.is_valid():
+			formulario_calificacion.save()
+			return HttpResponseRedirect('/idea/'+id_idea)
+	else:
+		formulario_calificacion = CalificacionForm()	
+	return render_to_response('idea.html',{'idea':idea_, 'comentarios':comentarios, 'calificaciones_dislike':calificaciones_dislike, 'calificaciones_like':calificaciones_like, 'usuario':usuario, 'tareas':tareas, 'aplicaciones':aplicaciones, 'formulario_comentario':formulario_comentario,'formulario_aplicacion':formulario_aplicacion, 'formulario_calificacion':formulario_calificacion}, context_instance=RequestContext(request))
 
 @login_required(login_url='/ingresar')
 def detalle_idea_usuario(request, id_idea):
 	usuario = request.user
 	idea_ = get_object_or_404(Idea, pk=id_idea)
 	tareas = TareaxIdea.objects.filter(idea=idea_)
+	aplicaciones = Aplicacion.objects.all()
 	if request.method=='POST':
 		formulario_tareaidea = TareaIdeaForm(request.POST)
 		if formulario_tareaidea.is_valid():
@@ -124,7 +134,7 @@ def detalle_idea_usuario(request, id_idea):
 			return HttpResponseRedirect('/ideas')
 	else:
 		formulario_tareaidea = TareaIdeaForm()
-	return render_to_response('miidea.html',{'idea':idea_, 'tareas':tareas, 'formulario_tareaidea':formulario_tareaidea, 'usuario':usuario}, context_instance=RequestContext(request))
+	return render_to_response('miidea.html',{'idea':idea_, 'tareas':tareas, 'formulario_tareaidea':formulario_tareaidea, 'usuario':usuario, 'aplicaciones':aplicaciones}, context_instance=RequestContext(request))
 
 @login_required(login_url='/ingresar')
 def nueva_idea(request):
