@@ -49,8 +49,7 @@
 							<p> Aún no se realiza ninguna aplicación</p>
 						{%  endfor %}
 				</div>
-				{% if item.estado == 'Sin asignar' %}
-					
+				{% if item.estado == 'Sin asignar' and idea.usuario != usuario%}
 					<form id='formulario_aplicacion' method='post' action=''>{% csrf_token %}
 						<input type="hidden" name="usuario" id="id_usuario" value={{usuario.id}} />
 						<input type="hidden" name="tarea" id="id_tarea" value={{item.id}} />

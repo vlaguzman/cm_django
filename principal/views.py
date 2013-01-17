@@ -1,6 +1,6 @@
 # Create your views here.
-from principal.models import Idea, Comentario, Tarea, TareaxIdea, Aplicacion, Perfil, Calificacion
-from principal.forms import IdeaForm, ComentarioForm, ContactoForm, TareaForm, TareaIdeaForm, AplicacionForm, CalificacionForm
+from principal.models import Idea, Comentario, Tarea, TareaxIdea, Aplicacion, Perfil, Calificacion, TransaccionTiempo
+from principal.forms import IdeaForm, ComentarioForm, ContactoForm, TareaForm, TareaIdeaForm, AplicacionForm, CalificacionForm, TransaccionForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
@@ -25,7 +25,7 @@ def nuevo_usuario(request):
 		formulario = UserCreationForm(request.POST)
 		if formulario.is_valid:
 			formulario.save()
-			return HttpResponseRedirect('/')
+			return HttpResponseRedirect('/privado')
 	else:
 		formulario = UserCreationForm()
 	return render_to_response('nuevousuario.html', {'formulario':formulario}, context_instance=RequestContext(request))
@@ -54,6 +54,9 @@ def ingresar(request):
 @login_required(login_url='/ingresar')
 def privado(request):
 	usuario = request.user
+	validar_transaccion = TransaccionTiempo.objects.filter(usuario=usuario)
+	if not validar_transaccion:
+		transaccion = TransaccionTiempo.objects.create(forma_adquisicion='Unidades iniciales', cantidad=3, usuario=usuario)
 	return render_to_response('privado.html', {'usuario':usuario}, context_instance=RequestContext(request))
 
 @login_required(login_url='/ingresar')

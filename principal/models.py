@@ -98,7 +98,7 @@ class Aplicacion(models.Model):
 
 class TransaccionTiempo(models.Model):
 	TIPOS_TRANSACCION = (
-    	('Pago por tarea', 'Pago por tarea'),
+    	('Pago tarea', 'Pago tarea'),
     	('Unidades iniciales', 'Unidades iniciales'),
     	('Unidades por compartir', 'Unidades por compartir'),
     	('Obsequio pagina', 'Obsequio pagina'),

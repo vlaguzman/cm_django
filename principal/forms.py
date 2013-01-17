@@ -1,7 +1,7 @@
 #encoding:utf-8
 from django.forms import ModelForm
 from django import forms
-from principal.models import Idea, Comentario, Tarea, TareaxIdea, Aplicacion, Calificacion
+from principal.models import Idea, Comentario, Tarea, TareaxIdea, Aplicacion, Calificacion, TransaccionTiempo
 
 class ContactoForm(forms.Form):
 	correo = forms.EmailField(label='Tu correo electrónico')
@@ -30,3 +30,7 @@ class AplicacionForm(ModelForm):
 class CalificacionForm(ModelForm):
 	class Meta:
 		model = Calificacion
+
+class TransaccionForm(ModelForm):
+	class Meta:
+		model = TransaccionTiempo
