@@ -20,11 +20,15 @@
 			{{total}} idea{{total|pluralize}}
 		{% endwith %}
 	</p>
-	<ul>
-		{% for dato in ideas %}
-		<li class="{% cycle 'impar' 'par'%}">{{dato.nombre}}</li>
-		{% empty %}
-		<li>No hay ideas registradas aún</li>
-		{% endfor %}
-	</ul>	
+<a href="/idea/nueva">Es hora de agregar tú idea!</a>
+<ul>
+    {% for idea in ideas %}
+    <li>
+        <a href='{% url principal.views.detalle_idea idea.id %}'>{{idea.nombre}}</a>
+        <img src='{{MEDIA_URL}}{{idea.imagen}}'>
+    </li>
+    {% empty %}
+    <li>Aún no hay ideas registradas</li>
+    {% endfor %}
+</ul>
 {% endblock %}

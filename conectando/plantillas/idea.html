@@ -7,12 +7,7 @@
 {% endblock %}
 
 {% block contenido %}
-	<a href="/tarea/nueva">Agregar una Tarea</a>
-
-	<div id='descripcion'>
-		<h3>Descripci&oacute;n</h3>
-		<p>{{idea.descripcion}}</p>
-	</div>
+	
 	<div id='clasificacion'>
 		<h3>Clasificación</h3>
 		<p>{{idea.idea_clasificacion}}</p>
@@ -20,9 +15,15 @@
 	<div id='referencia'>
 		<img src='{{MEDIA_URL}}{{idea.imagen}}'>
 	</div>
-	<div id='calificacion'>
-		<p>Me gusta: {{calificaciones_like.count}} - No me gusta: {{calificaciones_dislike.count}}</p>
-	</div>	
+	<div id='descripcion'>
+		<p>{{idea.descripcion}}</p>
+	</div>
+	
+		<div id='calificacion'>
+			<p>Me gusta: {{calificaciones_like.count}} - No me gusta: {{calificaciones_dislike.count}}</p>
+		</div>	
+	
+	{% if not calificacion_permitida %}
 	<form id='formulario_calificacion' method='post' action=''>{% csrf_token %}{{ form|as_bootstrap }}
 		<input type="hidden" name="usuario" id="id_usuario" value={{usuario.id}} />
 		<input type="hidden" name="idea" id="id_idea" value={{idea.id}} />
@@ -33,6 +34,7 @@
 
 		<p><input type='submit' value='Evaluar'></p>
 	</form>
+	{% endif %}
 	<div id='tareas'>
 		<h2>Tareas</h2>
 			{%  for item in tareas %}
@@ -64,6 +66,8 @@
 				<p> Sin tareas registradas </p>
 			{%  endfor %}
 	</div>
+	<a href="/tarea/nueva">Agregar una Tarea</a>
+
 	<div id='comentarios'>
 		<h2>Comentarios</h2>
 			{%  for item in comentarios %}

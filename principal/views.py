@@ -96,8 +96,9 @@ def detalle_idea(request, id_idea):
 	comentarios = Comentario.objects.filter(idea=idea_)
 	tareas = TareaxIdea.objects.filter(idea=idea_)
 	aplicaciones = Aplicacion.objects.all()
-	calificaciones_like = Calificacion.objects.filter(idea=idea_, idea_clasificacion='S')
-	calificaciones_dislike = Calificacion.objects.filter(idea=idea_, idea_clasificacion='N')
+	calificaciones_like = Calificacion.objects.filter(idea=idea_, idea_clasificacion='Me gusta')
+	calificaciones_dislike = Calificacion.objects.filter(idea=idea_, idea_clasificacion='No me gusta')
+	calificacion_permitida = Calificacion.objects.filter(idea=idea_, usuario=usuario)
 	if request.method=='POST':
 		formulario_comentario = ComentarioForm(request.POST)
 		if formulario_comentario.is_valid():
@@ -119,7 +120,7 @@ def detalle_idea(request, id_idea):
 			return HttpResponseRedirect('/idea/'+id_idea)
 	else:
 		formulario_calificacion = CalificacionForm()	
-	return render_to_response('idea.html',{'idea':idea_, 'comentarios':comentarios, 'calificaciones_dislike':calificaciones_dislike, 'calificaciones_like':calificaciones_like, 'usuario':usuario, 'tareas':tareas, 'aplicaciones':aplicaciones, 'formulario_comentario':formulario_comentario,'formulario_aplicacion':formulario_aplicacion, 'formulario_calificacion':formulario_calificacion}, context_instance=RequestContext(request))
+	return render_to_response('idea.html',{'idea':idea_, 'comentarios':comentarios, 'calificacion_permitida':calificacion_permitida, 'calificaciones_dislike':calificaciones_dislike, 'calificaciones_like':calificaciones_like, 'usuario':usuario, 'tareas':tareas, 'aplicaciones':aplicaciones, 'formulario_comentario':formulario_comentario,'formulario_aplicacion':formulario_aplicacion, 'formulario_calificacion':formulario_calificacion}, context_instance=RequestContext(request))
 
 @login_required(login_url='/ingresar')
 def detalle_idea_usuario(request, id_idea):
