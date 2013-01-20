@@ -78,7 +78,7 @@ MEDIA_ROOT = os.path.join(RUTA_PROYECTO, 'carga')
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/" exp. STATIC_ROOT = ''
 
-STATIC_ROOT= os.path.join(PROJECT_DIR,'staticfiles/')
+STATIC_ROOT= os.path.join(RUTA_PROYECTO,'staticfiles/')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
