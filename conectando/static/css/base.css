@@ -1,0 +1,53 @@
+html{
+	margin-top: 30px;
+}
+html,body {
+	height: 100%;
+}
+header {
+	background-color:#008500;
+	color:#ffffff;
+}
+nav ul li a{
+	text-decoration:none;
+	color:#fff;
+	margin:10px;
+}
+.activo { 
+  font-weight: bold; 
+}
+.container{
+	background-color: #353535 !important;
+	color: #5B5B5B !important;
+	width: 100% !important;
+	height: 90px !important;
+} 
+
+#cm-formulario-registro {
+	margin-top: 30px;
+	margin-right: 20px;
+}
+
+#cm-formulario-registro > div, label, input, p{
+	display: inline-block;
+	position: relative;
+}
+
+#footer {
+    background-color: #353535 !important;
+    height: 60px;
+    width: 100%;
+	bottom:0px;
+	position:fixed;
+}
+      /* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+    #footer {
+		margin-left: -20px;
+		margin-right: -20px;
+		padding-left: 20px;
+		padding-right: 20px;
+		display:block;
+	}
+}
+

@@ -8,10 +8,6 @@
 {% block contenido %}
 
 
-	<div id='descripcion'>
-		<h2>Descripci&oacute;n</h2>
-		<p>{{idea.descripcion}}</p>
-	</div>
 	<div id='clasificacion'>
 		<h2>Clasificación</h2>
 		<p>{{idea.idea_clasificacion}}</p>
@@ -19,35 +15,51 @@
 	<div id='referencia'>
 		<img src='{{MEDIA_URL}}{{idea.imagen}}'>
 	</div>	
+	<div id='descripcion'>
+		<p>{{idea.descripcion}}</p>
+	</div>
+	
 	<div id='tareas'>
-		<h2>Tareas</h2>
+		<h3>Tareas</h3>
 			{%  for item in tareas %}
 				<p>{{item.tarea.nombre}} - Fecha creación : {{item.fecha_creacion}} - Unidades : {{item.unidades_pago}} - Tiempo : {{item.tiempo_estimado}} días - Estado: {{item.estado}}</p>
 				<div id='aplicaciones'>
-					<h2>Aplicaciones</h2>
+					<h5>Propuestas</h5>
 						{%  for aplicacion in aplicaciones %}
 							{% if item == aplicacion.tarea %}
-								<p>{{aplicacion.usuario.username}} - Aplicacion realizada el: {{aplicacion.fecha_aplicacion}} - Comentario: {{aplicacion.comentario}}</p>
+								<p>{{aplicacion.usuario.username}} - Unidades: {{aplicacion.unidades_pago}} - Precio: {{aplicacion.precio}} - Tiempo estimado: {{aplicacion.tiempo_estimado}} - Comentario: {{aplicacion.comentario}} - Aplicacion realizada el: {{aplicacion.fecha_aplicacion}}</p>
+								{% if item.estado != 'Asignada' %}
+								<a href='{% url principal.views.aceptar_propuesta aplicacion.id %}'>Aceptar esta propuesta</a>
+								{% endif %}
+								<br>
 							{% endif %}
 						{%  empty %}
-							<p> Aún no se realiza ninguna aplicación</p>
+							<p>Aún no hay ningua</p>
 						{%  endfor %}
 				</div>
 			{%  empty %}
 				<p> Sin tareas registradas </p>
 			{%  endfor %}
 	</div>
+	<h3> Agregar una nueva tarea:</h3>
+	<p>Una tareas es algo muy sencillo que necesites para avanzar en tú idea, puede ir desde "ayuda para generar una descripción más clara de mi negocio" hasta "diseño de logos basado en bocetos", trata siempre de registrar actividades lo más específicas posibles.</p>
 	<form id='formulario_tareaidea' method='post' action=''>{% csrf_token %}
 
 		<input type="hidden" name="idea" id="id_idea" value={{idea.id}} />
 
 		{{formulario_tareaidea.tarea.errors}}
 		<label for='id_tarea'>Tarea:</label>
-		{{formulario_tareaidea.tarea}}				
+		{{formulario_tareaidea.tarea}}			
+
+		<p>Puedes pagar sólo con unidades de tiempo, sólo con dinero o una convinación de las 2</p>	
 
 		{{formulario_tareaidea.unidades_pago.errors}}
-		<label for='id_unidades_pago'>Unidades:</label>
+		<label for='id_unidades_pago'>Cúantas unidades de tiempo das como pago:</label>
 		{{formulario_tareaidea.unidades_pago}}
+
+		{{formulario_tareaidea.precio_pago.errors}}
+		<label for='id_precio'>Precio:</label>
+		{{formulario_tareaidea.precio_pago}}
 
 		{{formulario_tareaidea.tiempo_estimado.errors}}
 		<label for='id_tiempo_estimado'>Tiempo (Días):</label>

@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
 {% block titulo %}Ingresa al sistema{% endblock %}
 {% block encabezado %}
-	<h1>Ingresa</h1>
+	<h2>Ingresa</h2>
+	<h4>Antes de empezar a compartir debes haber ingresaso a nuestro sistema.</h4>
+	<div id="cm-headertop" class="navbar navbar-fixed-top">
+	    <div id="cm-barra_header" class="navbar-inner">
+	        <div class="container">
+	            <a href="/" class="brand"> <img src="{{STATIC_URL}}img/logo.png"/> </a>
+	            	
+	        </div>
+	    </div>
+	</div>
 {% endblock %}
 {% block contenido %}
 	<form id='formulario' method='post' action=''>{% csrf_token %}

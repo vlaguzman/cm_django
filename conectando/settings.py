@@ -8,7 +8,7 @@ import os
 
 RUTA_PROYECTO = os.path.dirname(os.path.realpath(__file__))
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -17,7 +17,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-if bool(os.environ.get('LOCAL_DEV', True)):  
+if bool(os.environ.get('LOCAL_DEV', DEBUG)):  
   DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -28,10 +28,12 @@ if bool(os.environ.get('LOCAL_DEV', True)):
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
   }
+  MEDIA_URL = 'http://127.0.0.1:8000/media/'
 else: 
   DATABASES = {
       'default' : dj_database_url.config(default='postrgres://localhost')
   }
+  MEDIA_URL = 'http://localhost/media/'
 
 
 
@@ -65,7 +67,7 @@ MEDIA_ROOT = os.path.join(RUTA_PROYECTO, 'carga')
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = 'http://127.0.0.1:8000/media/'
+
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files

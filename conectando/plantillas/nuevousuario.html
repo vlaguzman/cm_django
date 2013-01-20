@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
 {% block titulo %}Nuevo usuario{% endblock %}
 {% block encabezado %}
-	<h1>Registra un nuevo usuario</h1>
+	<h3>Gracias por ayudarnos a mejorar. Estás a punto de ser una de las primeras #mentes en probar nuestra propuesta</h3>
+	<div id="cm-headertop" class="navbar navbar-fixed-top">
+	    <div id="cm-barra_header" class="navbar-inner">
+	        <div class="container">
+	            <a href="/" class="brand"> <img src="{{STATIC_URL}}img/logo.png"/> </a>
+	            	
+	        </div>
+	    </div>
+	</div>
 {% endblock %}
+
 {% block contenido %}
 	<form id='formulario' method='post' action=''>{% csrf_token %}
 		<table>{{formulario}}</table>

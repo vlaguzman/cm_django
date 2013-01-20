@@ -88,12 +88,22 @@ class TareaxIdea(models.Model):
 	idea = models.ForeignKey(Idea)
 	fecha_creacion = models.DateTimeField(auto_now=True)
 	unidades_pago = models.IntegerField()
+	precio_pago = models.IntegerField()
 	tiempo_estimado = models.IntegerField()
 
 class Aplicacion(models.Model):
+	ESTADOS = (
+    	('En espera', 'En espera'),
+    	('Aceptada', 'Aceptada'),
+    	('Rechazada', 'Rechazada'),
+	)
+	estado = models.CharField(max_length=20, choices=ESTADOS)
 	usuario = models.ForeignKey(User)
 	tarea = models.ForeignKey(TareaxIdea)
 	fecha_aplicacion = models.DateTimeField(auto_now=True)
+	unidades_pago = models.IntegerField()
+	precio = models.IntegerField()
+	tiempo_estimado = models.IntegerField()
 	comentario = models.TextField(help_text='Tu comentario', verbose_name='Comentario')
 
 class TransaccionTiempo(models.Model):

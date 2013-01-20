@@ -43,7 +43,7 @@
 					<h3>Propuestas</h3>
 						{%  for aplicacion in aplicaciones %}
 							{% if item == aplicacion.tarea %}
-								<p>{{aplicacion.usuario.username}} - Aplicacion realizada el: {{aplicacion.fecha_aplicacion}} - Comentario: {{aplicacion.comentario}}</p>
+								<p>{{aplicacion.usuario.username}} - Unidades: {{aplicacion.unidades_pago}} - Precio: {{aplicacion.precio}} - Tiempo estimado: {{aplicacion.tiempo_estimado}} - Comentario: {{aplicacion.comentario}} - Aplicacion realizada el: {{aplicacion.fecha_aplicacion}}</p>
 							{% endif %}
 						{%  empty %}
 							<p> Aún no se realiza ninguna aplicación</p>
@@ -53,10 +53,26 @@
 					<form id='formulario_aplicacion' method='post' action=''>{% csrf_token %}
 						<input type="hidden" name="usuario" id="id_usuario" value={{usuario.id}} />
 						<input type="hidden" name="tarea" id="id_tarea" value={{item.id}} />
+						<input type="hidden" name="estado" id="id_estado" value='En espera' />
 
 						{{formulario_aplicacion.comentario.errors}}
 						<label for='id_comentario_aplicacion'>Genera una propuesta:</label>
 						{{formulario_aplicacion.comentario}}
+
+						<p>¿Cuánto de demoras?</p>
+						{{formulario_aplicacion.tiempo_estimado.errors}}
+						<label for='id_tiempo_estimado'>Tiempo estimado:</label>
+						{{formulario_aplicacion.tiempo_estimado}}
+
+
+						<p>¿Cuánto cobras?</p>
+						{{formulario_aplicacion.unidades_pago.errors}}
+						<label for='id_unidades_pago'>Unidades de tiempo:</label>
+						{{formulario_aplicacion.unidades_pago}}
+
+						{{formulario_aplicacion.precio.errors}}
+						<label for='id_precio'>Precio:</label>
+						{{formulario_aplicacion.precio}}
 
 						<p><input type='submit' value='Aplicar'></p>
 					</form>
@@ -65,7 +81,6 @@
 				<p> Sin tareas registradas </p>
 			{%  endfor %}
 	</div>
-	<a href="/tarea/nueva">Agregar una Tarea</a>
 
 	<div id='comentarios'>
 		<h2>Comentarios</h2>

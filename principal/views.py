@@ -51,7 +51,7 @@ def nuevo_usuario(request):
 
 def ingresar(request):
 	if not request.user.is_anonymous():
-		return HttpResponseRedirect('/privado')
+		return HttpResponseRedirect('/ideas')
 	if request.method == 'POST':
 		formulario = AuthenticationForm(request.POST)
 		if formulario.is_valid:
@@ -61,7 +61,7 @@ def ingresar(request):
 			if acceso is not None:
 				if acceso.is_active:
 					login(request, acceso)
-					return HttpResponseRedirect('/privado')
+					return HttpResponseRedirect('/ideas')
 				else:
 					return render_to_response('noactivo.html', context_instance=RequestContext(request))
 			else:
@@ -202,3 +202,16 @@ def nueva_tareaxidea(request, id_idea):
 	else:
 		formulario_tareaidea = TareaIdeaForm()
 	return render_to_response('tareaideaform.html',{'idea':idea_, 'formulario_tareaidea':formulario_tareaidea}, context_instance=RequestContext(request))
+
+@login_required(login_url='/ingresar')
+def aceptar_propuesta(request, id_aplicacion):
+	usuario = request.user
+	propuesta = get_object_or_404(Aplicacion, pk=id_aplicacion)
+	tareaxidea = propuesta.tarea
+	tareaxidea.estado = 'Asignada'
+	tareaxidea.save()
+
+	return render_to_response('mispropuestas.html',{'usuario':usuario, 'propuesta':propuesta}, context_instance=RequestContext(request))
+
+
+
