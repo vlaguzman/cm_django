@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'baselogged.html' %}
 {% block contenido %}
 	<form id='formulario_tareas' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
 		{{formulario_tareas.perfil.errors}}

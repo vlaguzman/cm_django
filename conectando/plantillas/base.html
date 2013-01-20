@@ -22,37 +22,18 @@
     {% bootstrap_javascript_tag "dropdown" %}
 </head>
 <body>
-	<div class="navbar navbar-fixed-top">
-	    <div class="navbar-inner">
-	        <div class="container">
-	            <a class="brand" href="/">Conectando Mentes</a>
-	            <ul class="nav">
-	                <li><a href="/" class="">Home</a></li>
-	                <li><a href="/usuarios">Usuarios registrados</a></li>
-	                <li><a href="/contacto">Contáctanos</a></li>
-	                <li class="dropdown">
-	                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Perfil<b class="caret"></b></a>
-	                    <ul class="dropdown-menu">
-	                        <li><a href="/misideas">Mis ideas</a></li>
-	                        <li><a href="/cerrar">Cerrar</a></li>
-	                    </ul>
-	                </li>
+	
+	{% block encabezado %}{% endblock %}
 
-	            </ul>
-	        </div>
-	    </div>
-	</div>
-
-	<!--
-	<header>
-		{% block encabezado %}{% endblock %}
-	</header>
-	-->
 	<section class='contenido'>
 		{% block contenido %}{% endblock %}
 	</section>
-	<footer>
-		<p>&copy Conectando Mentes - Todos los derechos reservados - 2013</p>
-	</footer>
+	<div id="footer">
+      	<div class="container" id="cm-divfotter">
+		 <img class="cm-itemfotter" id="cm-logofotter"src="{{STATIC_URL}}img/fotter_logo.png"/>
+         <span class="cm-itemfotter" id="cm-copyright">Copyright &#169 2012</span>
+		 <a href="mailto:info@conectandomentes.com" class="cm-itemfotter" id="cm-img_contacto"> <img src="{{STATIC_URL}}img/fotter_contacto.png"/> </a>
+      	</div>
+  	</div>
 </body>
 </html>

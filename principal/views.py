@@ -12,8 +12,27 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
 def inicio(request):
+	acceso = True
+	if not request.user.is_anonymous():
+		return HttpResponseRedirect('/ideas')
+	if request.method == 'POST':
+		formulario = AuthenticationForm(request.POST)
+		if formulario.is_valid:
+			usuario = request.POST['username']
+			clave = request.POST['password']
+			acceso = authenticate(username=usuario, password=clave)
+			if acceso is not None:
+				if acceso.is_active:
+					login(request, acceso)
+					return HttpResponseRedirect('/ideas')
+				else:
+					return render_to_response('noactivo.html', context_instance=RequestContext(request))
+			else:
+				return render_to_response('nousuario.html', context_instance=RequestContext(request))
+	else:
+		formulario = AuthenticationForm()
 	ideas = Idea.objects.all()
-	return render_to_response('inicio.html', {'ideas':ideas}, context_instance=RequestContext(request))
+	return render_to_response('inicio.html', {'acceso':acceso, 'ideas':ideas, 'formulario':formulario}, context_instance=RequestContext(request))
 
 def usuarios(request):
 	usuarios = User.objects.all()

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'baselogged.html' %}
 {% block contenido %}
 	<form id='formulario' method='post' action=''>{% csrf_token %}
 	{{formulario.as_p}}

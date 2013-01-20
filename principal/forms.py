@@ -1,5 +1,6 @@
 #encoding:utf-8
 from django.forms import ModelForm
+from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from principal.models import Idea, Comentario, Tarea, TareaxIdea, Aplicacion, Calificacion, TransaccionTiempo
 
@@ -34,3 +35,4 @@ class CalificacionForm(ModelForm):
 class TransaccionForm(ModelForm):
 	class Meta:
 		model = TransaccionTiempo
+
