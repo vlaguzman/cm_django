@@ -29,13 +29,13 @@ if bool(os.environ.get('LOCAL_DEV', DEBUG)):
     }
   }
   MEDIA_URL = 'http://127.0.0.1:8000/media/'
-  STATIC_URL = 'static/'
+  STATIC_URL = '/static/'
 else: 
   DATABASES = {
       'default' : dj_database_url.config(default='postrgres://localhost')
   }
   MEDIA_URL = 'http://localhost/media/'
-  STATIC_URL = 'http://localhost/static/'
+  STATIC_URL = '/static/'
 
 
 
