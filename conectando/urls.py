@@ -25,7 +25,5 @@ urlpatterns = patterns('',
     url(r'^tarea/nueva/$','principal.views.nueva_tarea'),
     url(r'^aceptar_propuesta/(?P<id_aplicacion>\d+)$','principal.views.aceptar_propuesta'),
     
-    if not settings.DEBUG:
-        urlpatterns += staticfiles_urlpatterns()
-   
+     
 )
