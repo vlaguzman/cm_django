@@ -5,6 +5,7 @@ from django.conf import settings
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
     url(r'^$', 'principal.views.inicio', name='home'),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
@@ -25,5 +26,5 @@ urlpatterns = patterns('',
     url(r'^tarea/nueva/$','principal.views.nueva_tarea'),
     url(r'^aceptar_propuesta/(?P<id_aplicacion>\d+)$','principal.views.aceptar_propuesta'),
     
-     
+
 )
