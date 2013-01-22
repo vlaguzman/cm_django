@@ -35,7 +35,7 @@ else:
   DATABASES = {
       'default' : dj_database_url.config(default='postrgres://localhost')
   }
-  MEDIA_URL = 'http://localhost/media/'
+  MEDIA_URL = 'http://conectandomentes.herokuapp.com/media/'
   STATIC_URL = '/static/'
 
 
