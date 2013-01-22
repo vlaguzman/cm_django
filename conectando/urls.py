@@ -5,7 +5,7 @@ from django.conf import settings
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
     url(r'^$', 'principal.views.inicio', name='home'),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
