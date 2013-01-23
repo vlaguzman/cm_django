@@ -18,7 +18,7 @@
     {% for idea in ideas %}
     <li>
         <article class="cm-ideas">
-            <img src='{{MEDIA_URL}}{{idea.imagen}}'>
+            <img src='{{MEDIA_ROOT}}{{idea.imagen}}'>
             <h5 >{{idea.nombre}}</h5>
             <p> {{idea.descripcion}} </p>
             <a class="btn btn-primary" href="{% url principal.views.detalle_idea idea.id %}"> Saber más</a>
