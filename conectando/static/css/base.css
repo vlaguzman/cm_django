@@ -46,15 +46,16 @@ header {
 } 
 
 #cm-formulario-registro {
-	margin-top: 30px;
-	margin-right: 20px;
+	position: fixed;
+	top: 20px;
+	right: 20px;
 }
 
 #cm-formulario-registro>label, 
 #cm-formulario-registro>input, 
 #cm-formulario-registro>p{
 	display: inline-block;
-	position: relative;
+
 }
 
 #cm-formulario-ideas, #cm-formulario-contacto{

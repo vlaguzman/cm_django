@@ -8,6 +8,9 @@
 {% block style_css %}
 	.impar { background-color:#90EE90;}
 	.par { background-color:#5ACC5A;}
+	body{
+		padding-top: 100px;
+	}
 {% endblock %}
 
 {% block encabezado %}
@@ -42,14 +45,17 @@
 		{% endwith %}
 	</p>
 
-<a href="/usuario/nuevo">Registrate</a>
-<br>
-<a href="/idea/nueva">Es hora de agregar tú idea!</a>
+
+<a class="btn btn-large btn-primary" href="/idea/nueva">¡Es hora de agregar tú idea!</a>
 <ul>
     {% for idea in ideas %}
-    <li>
-        <a href='{% url principal.views.detalle_idea idea.id %}'>{{idea.nombre}}</a>
-        <img src='{{MEDIA_URL}}{{idea.imagen}}'>
+  	<li>
+        <article class="cm-ideas">
+            <img src='{{MEDIA_URL}}{{idea.imagen}}'>
+            <h5 >{{idea.nombre}}</h5>
+            <p> {{idea.descripcion}} </p>
+            <a class="btn btn-primary" href="{% url principal.views.detalle_idea idea.id %}"> Saber más</a>
+        </article>
     </li>
     {% empty %}
     <li>Aún no hay ideas registradas</li>
