@@ -73,7 +73,6 @@ footer {
     height: 60px;
     width: 100%;
 	bottom:0px;
-	position:fixed;
 }
       /* Lastly, apply responsive CSS fixes as necessary */
 @media (max-width: 767px) {
