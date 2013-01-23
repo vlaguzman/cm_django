@@ -35,7 +35,7 @@ else:
   DATABASES = {
       'default' : dj_database_url.config(default='postrgres://localhost')
   }
-  MEDIA_URL = 'http://127.0.0.1:90/media/'
+  MEDIA_URL = 'http://localhost/media/'
   
 
 # Local time zone for this installation. Choices can be found here:
