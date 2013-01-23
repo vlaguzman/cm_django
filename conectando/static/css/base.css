@@ -1,5 +1,8 @@
-html{
-	margin-top: 30px;
+body{
+	background-image: url(../img/bg.jpg);
+}
+ul{
+	list-style: none;
 }
 html,body {
 	height: 100%;
@@ -8,16 +11,35 @@ header {
 	background-color:#008500;
 	color:#ffffff;
 }
-nav ul li a{
+.nav>li>a{
 	text-decoration:none;
-	color:#fff;
-	margin:10px;
+	color:#E2E2E2 !important;
+	font-size: medium;
+	font-weight: bold; 
+	margin:30px;
+	text-shadow: 1px 1px 1px #000 !important;
 }
 .activo { 
   font-weight: bold; 
 }
-.container{
-	background-color: #353535 !important;
+.contenido>a,
+.contenido>ul{
+	display: block;
+	margin: 0 10%;
+}
+.contenido>ul li{
+	display: inline-block;
+}
+.contenido article{
+	margin: 4px;
+	border: solid 3px;
+	width: 200px;
+}
+.cm-ideas>img{
+	z-index: 10;
+}
+.navbar-inner{
+	background: #353535 !important;
 	color: #5B5B5B !important;
 	width: 100% !important;
 	height: 90px !important;
@@ -28,12 +50,24 @@ nav ul li a{
 	margin-right: 20px;
 }
 
-#cm-formulario-registro > div, label, input, p{
+#cm-formulario-registro>label, 
+#cm-formulario-registro>input, 
+#cm-formulario-registro>p{
 	display: inline-block;
 	position: relative;
 }
 
-#footer {
+#cm-formulario-ideas, #cm-formulario-contacto{
+	margin-top: 10px;
+	margin-left: 25px;
+	max-width: 31%;
+}
+
+#cm-formulario-ideas>label, #cm-formulario-ideas>input, #cm-formulario-ideas>p{
+	display: block;
+}
+
+footer {
     background-color: #353535 !important;
     height: 60px;
     width: 100%;
@@ -42,7 +76,7 @@ nav ul li a{
 }
       /* Lastly, apply responsive CSS fixes as necessary */
 @media (max-width: 767px) {
-    #footer {
+    footer {
 		margin-left: -20px;
 		margin-right: -20px;
 		padding-left: 20px;
@@ -50,4 +84,3 @@ nav ul li a{
 		display:block;
 	}
 }
-

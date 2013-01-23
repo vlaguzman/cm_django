@@ -12,13 +12,17 @@
 {% endblock %}
 
 {% block contenido %}
-<a href="/idea/nueva">Agregar una Idea</a>
+<a class="btn btn-large btn-primary" href="/idea/nueva">¿Tienes una idea?</a>
 
 <ul>
     {% for idea in ideas %}
     <li>
-        <a href='{% url principal.views.detalle_idea idea.id %}'>{{idea.nombre}}</a>
-        <img src='{{MEDIA_URL}}{{idea.imagen}}'>
+        <article class="cm-ideas">
+            <img src='{{MEDIA_URL}}{{idea.imagen}}'>
+            <h5 >{{idea.nombre}}</h5>
+            <p> {{idea.descripcion}} </p>
+            <a class="btn btn-primary" href="{% url principal.views.detalle_idea idea.id %}"> Saber más</a>
+        </article>
     </li>
     {% empty %}
     <li>Aún no hay ideas registradas</li>

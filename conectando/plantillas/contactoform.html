@@ -1,7 +1,11 @@
 {% extends 'baselogged.html' %}
+{% load bootstrap_toolkit %}
+
 {% block contenido %}
-	<form id='formulario' method='post' action=''>{% csrf_token %}
+	<form class="form-{{ layout }}" id='cm-formulario-contacto' method='post' action=''>
+	{% csrf_token %}
+	{{ form|as_bootstrap }}
 	{{formulario.as_p}}
-	<p><input type='submit' value='Confirmar '/></p>	
+	<p><input class="btn btn-primary" type='submit' value='Confirmar '/></p>	
 	</form>
 {% endblock %}	

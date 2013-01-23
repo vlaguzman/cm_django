@@ -9,7 +9,7 @@ import os
 RUTA_PROYECTO = os.path.dirname(os.path.realpath(__file__))
 
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -30,13 +30,13 @@ if bool(os.environ.get('LOCAL_DEV', DEBUG)):
     }
   }
   MEDIA_URL = 'http://127.0.0.1:8000/media/'
-  STATIC_URL = '/static/'
+
 else: 
   DATABASES = {
       'default' : dj_database_url.config(default='postrgres://localhost')
   }
   MEDIA_URL = 'http://conectandomentes.herokuapp.com/media/'
-  STATIC_URL = '/static/'
+  
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -69,7 +69,7 @@ MEDIA_ROOT = os.path.join(RUTA_PROYECTO, 'carga')
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 
-
+STATIC_URL = '/static/'
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.

@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block contenido %}
-<a href="/idea/nueva">Agregar una Idea</a>
+<a class="btn btn-large btn-primary" href="/idea/nueva">¿Tienes una idea?</a>
 
 <ul>
     {% for idea in ideas %}
@@ -23,7 +23,7 @@
         {% endif %}
     </li>
     {% empty %}
-    <li>Aún no hay ideas registradas</li>
+        <li>Aún no hay ideas registradas</li>
     {% endfor %}
 </ul>
 {% endblock %}
