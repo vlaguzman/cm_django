@@ -6,6 +6,7 @@
 {% endblock %}	
 
 {%  block contenido %}
+<section id="cm-lista-usuarios">
 	<ul>
 	{% for dato in usuarios %}
 	<li>{{dato.username|capfirst}} - <em>{{dato.email}}</em>
@@ -23,4 +24,5 @@
 	<li>No hay usuarios registrados, aún.</li>
 	{% endfor %}
 	</ul>	
+</section>
 {% endblock %}

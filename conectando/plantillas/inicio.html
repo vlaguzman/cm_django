@@ -38,27 +38,33 @@
 {% endblock %}
 
 {% block contenido %}	
-	<p>
-		Actualmente tenemos registrados:
-		{% with total=ideas.count %}
-			{{total}} idea{{total|pluralize}}
-		{% endwith %}
-	</p>
 
+	<div id="cm-principalcontent">
+		<img src="{{STATIC_URL}}img/texto_principal.png"> 
+		<img src="{{STATIC_URL}}img/iconografia.png"> 
+	 </div>
 
-<a class="btn btn-large btn-primary" href="/idea/nueva">¡Es hora de agregar tú idea!</a>
-<ul>
-    {% for idea in ideas %}
-  	<li>
-        <article class="cm-ideas">
-            <img src='{{MEDIA_ROOT}}{{idea.imagen}}'>
-            <h5 >{{idea.nombre}}</h5>
-            <p> {{idea.descripcion}} </p>
-            <a class="btn btn-primary" href="{% url principal.views.detalle_idea idea.id %}"> Saber más</a>
-        </article>
-    </li>
-    {% empty %}
-    <li>Aún no hay ideas registradas</li>
-    {% endfor %}
-</ul>
+		<p>
+			Ideas registradas:
+			{% with total=ideas.count %}
+				{{total}} 
+			{% endwith %}
+		</p>
+
+	<ul>
+	    {% for idea in ideas %}
+	  	<li>
+	        <article class="cm-ideas">
+	            <img src='{{MEDIA_URL}}{{idea.imagen}}'>
+	            <h5 >{{idea.nombre}}</h5>
+	            <p> {{idea.descripcion}} </p>
+	            <a class="btn btn-success" href="{% url principal.views.detalle_idea idea.id %}"> Saber más</a>
+	        </article>
+	    </li>
+	    {% empty %}
+	    <li>Aún no hay ideas registradas</li>
+	    {% endfor %}
+	</ul>
+
+	<a class="btn btn-large btn-success" href="/idea/nueva">¡Es hora de agregar tú idea!</a>
 {% endblock %}

@@ -3,7 +3,7 @@
 {% load bootstrap_toolkit %}
 
 {% block contenido %}
-	<form  class="form-{{ layout }}" id='cm-formulario-ideas' method='post' enctype='multipart/form-data' action=''>
+	<form  class="cm-ultimo-elemento" class="form-{{ layout }}" id='cm-formulario-ideas' method='post' enctype='multipart/form-data' action=''>
 		{% csrf_token %}
 		{{ form|as_bootstrap }}
 		{{formulario_ideas.idea_clasificacion.errors}}

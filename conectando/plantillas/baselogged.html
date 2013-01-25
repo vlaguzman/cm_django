@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load bootstrap_toolkit %}
 <html lang='es'>
-<head>
+
 
 	<meta charset='utf-8'>
 	<title>Conectando Mentes - Alpha 1.0 - {% block titulo %} {% endblock %}</title>
@@ -14,8 +14,7 @@
 	<script src="{{STATIC_URL}}js/demo.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
     {% bootstrap_javascript_tag "dropdown" %}
-</head>
-<body>
+
 	
 	<div id="container" class="navbar">
 	    <div class="navbar-inner">
@@ -42,12 +41,12 @@
 	<section class='contenido'>
 		{% block contenido %}{% endblock %}
 	</section>
-	<footer>
-      	<div class="container" id="cm-divfotter">
-		 <img class="cm-itemfotter" id="cm-logofotter"src="{{STATIC_URL}}img/fotter_logo.png"/>
-         <span class="cm-itemfotter" id="cm-copyright">Copyright &#169 2012</span>
-		 <a href="mailto:info@conectandomentes.com" class="cm-itemfotter" id="cm-img_contacto"> <img src="{{STATIC_URL}}img/fotter_contacto.png"/> </a>
-      	</div>
-  	</footer>
-</body>
-</html>
+	<footer id="cm-footer-logged">
+    	<div class="container">
+		  <img src="{{STATIC_URL}}img/fotter_logo.png"/>
+      	  <span>Copyright &#169 2013</span>
+		      <a href="mailto:info@conectandomentes.com"> 
+        	<img src="{{STATIC_URL}}img/fotter_contacto.png"/> 
+      	  </a>
+    	</div>
+  	<fotter>

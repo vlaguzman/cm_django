@@ -100,7 +100,6 @@
 
 		<p><input type='submit' value='Confirmar'></p>
 	</form>
-	<footer>
-		<p>Registrado {{idea.fecha_registro|date:'SHORT_DATETIME_FORMAT'}} por {{idea.usuario}}</p>
-	</footer>
+	<p class="cm-ultimo-elemento">Registrado {{idea.fecha_registro|date:'SHORT_DATETIME_FORMAT'}} por {{idea.usuario}}</p>
+	
 {% endblock %}
