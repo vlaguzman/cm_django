@@ -18,6 +18,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# MEDIA_URL cambia según la ubicación en que se suba la aplicación
 if bool(os.environ.get('LOCAL_DEV', DEBUG)):  
   DATABASES = {
     'default': {
