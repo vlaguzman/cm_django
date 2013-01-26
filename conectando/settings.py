@@ -29,13 +29,13 @@ if bool(os.environ.get('LOCAL_DEV', DEBUG)):
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
   }
-  MEDIA_URL = 'http://conectandomentes.herokuapp.com/media/'
+  MEDIA_URL = 'http://127.0.0.1:8000/media/'
 
 else: 
   DATABASES = {
       'default' : dj_database_url.config(default='postrgres://localhost')
   }
-  MEDIA_URL = 'http://localhost/media/'
+  MEDIA_URL = 'http://conectandomentes.herokuapp.com/media/'
   
 
 # Local time zone for this installation. Choices can be found here:
