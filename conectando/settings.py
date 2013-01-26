@@ -29,7 +29,7 @@ if bool(os.environ.get('LOCAL_DEV', DEBUG)):
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
   }
-  MEDIA_URL = 'http://127.0.0.1:8000/media/'
+  MEDIA_URL = 'http://conectandomentes.herokuapp.com/media/'
 
 else: 
   DATABASES = {
@@ -172,5 +172,5 @@ LOGGING = {
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'solo.ventas.virtuales@gmail.com'
-EMAIL_HOST_PASSWORD = 'Sub@sta553'
+EMAIL_HOST_PASSWORD = 'Sub@stas'
 EMAIL_PORT = 587
