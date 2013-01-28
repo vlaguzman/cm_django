@@ -20,6 +20,7 @@
         {% if idea.usuario == usuario %}      
             <a href='{% url principal.views.detalle_idea_usuario idea.id %}'>{{idea.nombre}}</a>
             <img src='{{MEDIA_URL}}{{idea.imagen}}'>
+            <a href='{% url principal.views.editar_idea idea.id %}'>Editar</a>
         {% endif %}
     </li>
     {% empty %}

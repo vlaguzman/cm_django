@@ -1,5 +1,5 @@
 {% extends 'baselogged.html' %}
-{% block titulo %} {{idea.nombre}} {% endblock %}
+{% block titulo %} {% endblock %}
 
 {% block encabezado %}
 	<h1>oK</h1>
@@ -7,5 +7,16 @@
 
 {% block contenido %}
 
-<p>la propuesta ha sido aceptada</p>
+
+<ul>
+    {% for propuesta in propuestas %}
+    <li>
+        {% if propuesta.usuario == usuario %}      
+        	<p> Tarea: {{propuesta.tarea.tarea.nombre}} - Estado: {{propuesta.estado}} - Tiempo estimado: {{propuesta.tiempo_estimado}}</p>
+        {% endif %}
+    </li>
+    {% empty %}
+        <li>Aún no hay ideas registradas</li>
+    {% endfor %}
+</ul>
 {% endblock %}

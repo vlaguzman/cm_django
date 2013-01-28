@@ -1,0 +1,32 @@
+{% extends 'baselogged.html' %}
+
+{% load bootstrap_toolkit %}
+
+{% block contenido %}
+	<form  class="cm-ultimo-elemento" class="form-{{ layout }}" id='cm-formulario-ideas' method='post' enctype='multipart/form-data' action=''>
+		{% csrf_token %}
+		{{ form|as_bootstrap }}
+		{{formulario_ideas.idea_clasificacion.errors}}
+		<label for='id_idea_clasificacion'>Clasificación:</label>
+		<input name="clasificacion" id="idea_clasificacion" value="{{ idea.idea_clasificacion }}" >
+
+		{{formulario_ideas.nombre.errors}}
+		<label for='id_nombre'>Nombre:</label>
+		<input name="nombre" id="idea_nombre" value="{{ idea.nombre }}" >
+		
+		{{formulario_ideas.descripcion.errors}}
+		<label for='id_descripcion'>Descripción:</label>
+		<p>La descripción es muy clave para que todos sepan que quieres hacer. Intenta describirla brevemente, diciendo que problema quieres resolver y como lo vas a hacer.</p>
+		<textarea name="descripcion" id="id_descripcion">{{ idea.descripcion}}
+		</textarea>
+		{{formulario_ideas.imagen.errors}}
+		<label for='id_imagen'>Imagen:</label>
+		<img src="{{MEDIA_URL}}{{idea.imagen}}">
+		{{formulario_ideas.imagen}}
+
+		<input type="hidden" name="usuario" id="id_usuario" value={{usuario.id}} />
+		<input type="submit" value="Enviar" class="btn btn-primary">
+
+	</form>
+
+{% endblock %}

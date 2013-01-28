@@ -148,6 +148,7 @@ def detalle_idea(request, id_idea):
 def detalle_idea_usuario(request, id_idea):
 	usuario = request.user
 	idea_ = get_object_or_404(Idea, pk=id_idea)
+
 	tareas = TareaxIdea.objects.filter(idea=idea_)
 	aplicaciones = Aplicacion.objects.all()
 	if request.method=='POST':
@@ -164,14 +165,25 @@ def nueva_idea(request):
 	usuario = request.user
 	if request.method=='POST':
 		formulario_ideas = IdeaForm(request.POST, request.FILES)
-		formulario_tareas = TareaForm(request.POST, request.FILES)
 		if formulario_ideas.is_valid():
 			formulario_ideas.save()
 			return HttpResponseRedirect('/ideas')
 	else:
 		formulario_ideas = IdeaForm()
-		formulario_tareas = TareaForm()
 	return render_to_response('ideaform.html',{'formulario_ideas':formulario_ideas, 'usuario':usuario}, context_instance=RequestContext(request))
+
+@login_required(login_url='/ingresar')
+def editar_idea(request, id_idea):
+	usuario = request.user
+	idea = get_object_or_404(Idea, pk=id_idea)
+	if request.method=='POST':
+		formulario_ideas = IdeaForm(request.POST, instance=idea)
+		if formulario_ideas.is_valid():
+			formulario_ideas.save()
+			return HttpResponseRedirect('/ideas')
+	else:
+		formulario_ideas = IdeaForm()
+	return render_to_response('editaridea.html',{'idea':idea,'formulario_ideas':formulario_ideas, 'usuario':usuario}, context_instance=RequestContext(request))
 
 @login_required(login_url='/ingresar')
 def nueva_tarea(request):
@@ -210,8 +222,14 @@ def aceptar_propuesta(request, id_aplicacion):
 	tareaxidea = propuesta.tarea
 	tareaxidea.estado = 'Asignada'
 	tareaxidea.save()
+	return render_to_response('propuestaaceptada.html',{'usuario':usuario, 'propuesta':propuesta}, context_instance=RequestContext(request))
 
-	return render_to_response('mispropuestas.html',{'usuario':usuario, 'propuesta':propuesta}, context_instance=RequestContext(request))
+@login_required(login_url='/ingresar')
+def lista_propuestas_usuario(request):
+	usuario = request.user
+	propuestas = Aplicacion.objects.all()
+	return render_to_response('mispropuestas.html',{'usuario':usuario, 'propuestas':propuestas}, context_instance=RequestContext(request))
+
 
 
 
