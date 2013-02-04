@@ -61,7 +61,7 @@ def ingresar(request):
 			if acceso is not None:
 				if acceso.is_active:
 					login(request, acceso)
-					return HttpResponseRedirect('/ideas')
+					return HttpResponseRedirect('/misideas')
 				else:
 					return render_to_response('noactivo.html', context_instance=RequestContext(request))
 			else:
@@ -201,7 +201,15 @@ def nueva_tarea(request):
 def lista_ideas_usuario(request):
 	usuario = request.user
 	ideas = Idea.objects.all()
-	return render_to_response('misideas.html', {'ideas':ideas, 'usuario':usuario}, context_instance=RequestContext(request))
+	validar_transaccion = TransaccionTiempo.objects.filter(usuario=usuario)
+	if not validar_transaccion:
+		transaccion = TransaccionTiempo.objects.create(forma_adquisicion='Unidades iniciales', cantidad=3, usuario=usuario)
+	unidades = TransaccionTiempo.objects.all()
+	valor = 0
+	for value in unidades:
+		if value.usuario == usuario:
+			valor = valor + value.cantidad
+	return render_to_response('misideas.html', {'valor':valor,'unidades':unidades,'ideas':ideas, 'usuario':usuario}, context_instance=RequestContext(request))
 
 @login_required(login_url='/ingresar')
 def nueva_tareaxidea(request, id_idea):
@@ -219,9 +227,10 @@ def nueva_tareaxidea(request, id_idea):
 def aceptar_propuesta(request, id_aplicacion):
 	usuario = request.user
 	propuesta = get_object_or_404(Aplicacion, pk=id_aplicacion)
-	tareaxidea = propuesta.tarea
-	tareaxidea.estado = 'Asignada'
-	tareaxidea.save()
+	propuesta.estado = 'Aceptada'
+	propuesta.save()
+	propuesta.tarea.estado = 'Asignada'
+	propuesta.tarea.save()
 	return render_to_response('propuestaaceptada.html',{'usuario':usuario, 'propuesta':propuesta}, context_instance=RequestContext(request))
 
 @login_required(login_url='/ingresar')
@@ -229,7 +238,3 @@ def lista_propuestas_usuario(request):
 	usuario = request.user
 	propuestas = Aplicacion.objects.all()
 	return render_to_response('mispropuestas.html',{'usuario':usuario, 'propuestas':propuestas}, context_instance=RequestContext(request))
-
-
-
-

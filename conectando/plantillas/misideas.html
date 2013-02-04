@@ -13,14 +13,20 @@
 
 {% block contenido %}
 <a class="btn btn-large btn-primary" href="/idea/nueva">¿Tienes una idea?</a>
+<h6> Tienes: {{valor}} Unidades de tiempo.</h6>
 
 <ul>
     {% for idea in ideas %}
     <li>
         {% if idea.usuario == usuario %}      
-            <a href='{% url principal.views.detalle_idea_usuario idea.id %}'>{{idea.nombre}}</a>
-            <img src='{{MEDIA_URL}}{{idea.imagen}}'>
-            <a href='{% url principal.views.editar_idea idea.id %}'>Editar</a>
+            <article class="cm-ideas">
+                <img src='{{MEDIA_URL}}{{idea.imagen}}'>
+                <h5 >{{idea.nombre}}</h5>
+                <p> {{idea.descripcion}} </p>
+                <a class="btn btn-success" href="{% url principal.views.detalle_idea_usuario idea.id %}"> Agregar tareas</a>
+                <a class="btn btn-success" href='{% url principal.views.editar_idea idea.id %}'>Editar</a>
+            </article>
+
         {% endif %}
     </li>
     {% empty %}

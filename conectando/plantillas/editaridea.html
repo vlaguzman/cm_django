@@ -8,7 +8,15 @@
 		{{ form|as_bootstrap }}
 		{{formulario_ideas.idea_clasificacion.errors}}
 		<label for='id_idea_clasificacion'>Clasificación:</label>
-		<input name="clasificacion" id="idea_clasificacion" value="{{ idea.idea_clasificacion }}" >
+		
+		<select name="idea_clasificacion" id="id_idea_clasificacion">
+			<option value="" selected="selected">---------------</option>
+			<option value="Emprendimiento digital">Emprendimiento digital</option>
+			<option value="Emprendimiento tradicional">Emprendimiento tradicional</option>
+			<option value="Emprendimiento cultural">Emprendimiento cultural</option>
+			<option value="Emprendimiento social">Emprendimiento social</option>
+		</select>
+
 
 		{{formulario_ideas.nombre.errors}}
 		<label for='id_nombre'>Nombre:</label>
@@ -25,7 +33,7 @@
 		{{formulario_ideas.imagen}}
 
 		<input type="hidden" name="usuario" id="id_usuario" value={{usuario.id}} />
-		<input type="submit" value="Enviar" class="btn btn-primary">
+		<input type="submit" value="Editar" class="btn btn-success">
 
 	</form>
 

@@ -9,10 +9,14 @@
 
 	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css">
 	<link rel="shortcut icon" href="{{STATIC_URL}}img/icono.png">
-	
 	<script src="{{STATIC_URL}}js/jquery-1.8.3.js"></script>
 	<script src="{{STATIC_URL}}js/demo.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<style>
+	{% block style_css %}
+
+	{% endblock %}
+	</style>
     {% bootstrap_javascript_tag "dropdown" %}
 
 	
@@ -21,7 +25,6 @@
 	        <a href="/" class="brand"> <img src="{{STATIC_URL}}img/logo.png"/> </a>     
 	            <ul class="nav">
 		            <li><a href="/usuarios">Usuarios registrados</a></li>
-		            <li><a href="/contacto">Contáctanos</a></li>
 		            <li class="dropdown">
 		                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ver<b class="caret"></b></a>
 		                <ul class="dropdown-menu">
@@ -30,6 +33,7 @@
 		                    <li><a href="/cerrar">Cerrar</a></li>
 		                </ul>
 		            </li>
+		             <li><a href="/contacto">Contáctanos</a></li>
 		        </ul>
 	    </div>
 	</div>
