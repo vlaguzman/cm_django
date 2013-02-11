@@ -1,0 +1,27 @@
+{% extends 'baselogged.html' %}
+{% block titulo %} Tareas por realizar {% endblock %}
+
+{% block css %}
+	<style>
+		img { width: 100px; }
+	</style>
+{% endblock %}
+
+{% block encabezado %}
+	<h1>Tus tareas</h1>
+{% endblock %}
+
+{% block contenido %}
+<ul>
+    {% for item in aplicaciones %}
+    <li>
+        <article class="cm-tareas-usuario">
+            <p>Idea: {{item.tarea.idea.nombre}} - Tarea: {{item.tarea.tarea.nombre}} - Tiempo estimado: {{item.tiempo_estimado}} días</p>
+          
+        </article>
+    </li>
+    {% empty %}
+        <li>Aún no tienes tareas por realizar.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

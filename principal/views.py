@@ -1,5 +1,5 @@
 # Create your views here.
-from principal.models import Idea, Comentario, Tarea, TareaxIdea, Aplicacion, Perfil, Calificacion, TransaccionTiempo
+from principal.models import Idea, Comentario, Tarea, TareaxIdea, Aplicacion, Categoria, Calificacion, TransaccionTiempo
 from principal.forms import IdeaForm, ComentarioForm, ContactoForm, TareaForm, TareaIdeaForm, AplicacionForm, CalificacionForm, TransaccionForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
@@ -210,6 +210,12 @@ def lista_ideas_usuario(request):
 		if value.usuario == usuario:
 			valor = valor + value.cantidad
 	return render_to_response('misideas.html', {'valor':valor,'unidades':unidades,'ideas':ideas, 'usuario':usuario}, context_instance=RequestContext(request))
+
+@login_required(login_url='/ingresar')
+def lista_tareas_usuario(request):
+	usuario = request.user
+	aplicaciones = Aplicacion.objects.filter(usuario=usuario, estado='Aceptada')
+	return render_to_response('mistareas.html', {'usuario':usuario, 'aplicaciones':aplicaciones}, context_instance=RequestContext(request))
 
 @login_required(login_url='/ingresar')
 def nueva_tareaxidea(request, id_idea):

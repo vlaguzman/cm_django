@@ -1,9 +1,9 @@
 {% extends 'baselogged.html' %}
 {% block contenido %}
 	<form id='formulario_tareas' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
-		{{formulario_tareas.perfil.errors}}
-		<label for='id_idea_clasificacion'>Perfil:</label>
-		{{formulario_tareas.perfil}}
+		{{formulario_tareas.categoria.errors}}
+		<label for='id_idea_categoria'>Categoria:</label>
+		{{formulario_tareas.categoria}}
 
 		{{formulario_tareas.nombre.errors}}
 		<label for='id_nombre'>Nombre:</label>

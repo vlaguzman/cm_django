@@ -49,7 +49,7 @@ class Calificacion(models.Model):
 	def __unicode__(self):
 		return self.texto
 
-class Perfil(models.Model):
+class Categoria(models.Model):
 	nombre = models.CharField(max_length=100, verbose_name='Nombre', unique=True)
 	descripcion = models.TextField(verbose_name='Descripción')
 	usuarios =  models.ManyToManyField(User, null=True, blank=True)
@@ -64,7 +64,7 @@ class Perfil(models.Model):
 		ordering = ["nombre"]
 		
 class Tarea(models.Model):
-	perfil = models.ForeignKey(Perfil)
+	Categoria = models.ForeignKey(Categoria)
 	nombre = models.CharField(max_length=100, verbose_name='Nombre', unique=True)
 	descripcion = models.TextField(verbose_name='Descripción', help_text='Descripción de la tarea')
 	

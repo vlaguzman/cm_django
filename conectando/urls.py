@@ -27,6 +27,6 @@ urlpatterns = patterns('',
     url(r'^tarea/nueva/$','principal.views.nueva_tarea'),
     url(r'^aceptar_propuesta/(?P<id_aplicacion>\d+)$','principal.views.aceptar_propuesta'),
     url(r'^mispropuestas/$','principal.views.lista_propuestas_usuario'),
-
+    url(r'^mistareas/$','principal.views.lista_tareas_usuario'),
 
 )

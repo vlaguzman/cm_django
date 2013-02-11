@@ -38,7 +38,7 @@
 	<div id='tareas'>
 		<h2>Tareas</h2>
 			{%  for item in tareas %}
-				<p>{{item.tarea.nombre}} - Fecha creación : {{item.fecha_creacion}} - Unidades : {{item.unidades_pago}} - Tiempo : {{item.tiempo_estimado}} días - Estado: {{item.estado}}</p>
+				<p>{{item.tarea.nombre}} - Fecha creación : {{item.fecha_creacion}} - Unidades : {{item.unidades_pago}} - Precio : {{item.precio_pago}} - Tiempo : {{item.tiempo_estimado}} días - Estado: {{item.estado}}</p>
 				<div id='aplicaciones'>
 					<h3>Propuestas</h3>
 						{%  for aplicacion in aplicaciones %}
